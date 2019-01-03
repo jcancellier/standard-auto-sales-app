@@ -1,15 +1,30 @@
-import { DarkTheme } from 'react-native-paper';
+import { DarkTheme, DefaultTheme, Colors } from 'react-native-paper';
 import { fonts } from './fonts.js'
 
-const theme = {
+const dark = {
   ...DarkTheme,
   fonts,
-  roundness: 5,
+  // roundness: 2,
   colors: {
     ...DarkTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
+    primary: Colors.lightBlue500,
+    accent: '#f1c4of'
   }
+}
+
+const light = {
+  ...DefaultTheme,
+  fonts,
+  // roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.lightBlue500,
+    accent: '#f1c4of'
+  }
+}
+
+const theme = {
+  ...dark
 };
 
 export { theme };

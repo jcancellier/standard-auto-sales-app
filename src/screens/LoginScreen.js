@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     width: undefined,
   },
   logoText: {
-    // fontFamily: 'cereal-book',
+    fontFamily: 'cereal-bold',
     alignSelf: 'center'
   },
   loginText: {
