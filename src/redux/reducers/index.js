@@ -1,13 +1,6 @@
 import { combineReducers } from 'redux';
-
-const INITIAL_STATE = {
-  test: true
-}
-
-const testReducer = (state = INITIAL_STATE, action) => {
-  return state;
-}
+import AuthReducer from './AuthReducer';
 
 export default combineReducers({
-  test: testReducer
+  auth: AuthReducer
 })

@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading, Font, Asset } from 'expo';
 import { createRootNavigator } from './src/navigation'
 import { theme } from './src/global';
+import NavigationService from './src/navigation/navigationService';
 
 export default class App extends React.Component {
   state = {
@@ -38,7 +39,13 @@ export default class App extends React.Component {
 
   _renderRootNavigator() {
     const RootNav = createRootNavigator(true);
-    return <RootNav />;
+    return (
+      <RootNav
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    );
   }
 
   render() {

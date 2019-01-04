@@ -1,31 +1,36 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
+import { connect } from 'react-redux';
 import { Text, Headline, Title, Card, TextInput, Button, Caption, Subheading } from 'react-native-paper'
 import * as Animatable from 'react-native-animatable';
 import { theme } from '../global';
-import { loginWithUserIdAndLastName } from '../api';
+import { loginWithUserIdAndLastName } from '../redux/actions';
 
-
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
   static navigationOptions = {
     header: null
   }
 
   state = {
     lastName: '',
-    salespersonId: '',
-    isLoading: false
+    salespersonId: ''
+  }
+
+  _verifyForm = () => {
+    if (this.state.lastName.length == 0) {
+      alert('Must enter a last name');
+      return false;
+    }
+    if (this.state.salespersonId == 0) {
+      alert('Must enter a Salesperson ID')
+      return false;
+    }
+    return true;
   }
 
   _login = () => {
-    this.setState({ isLoading: true }, () => {
-      loginWithUserIdAndLastName(this.state.salespersonId)
-        .then(res => alert(res))
-        .catch(err => alert(err))
-        .then(() => this.setState({ isLoading: false }, () => {
-          this.props.navigation.navigate('MainStack')
-        }))
-    })
+    if (this._verifyForm())
+      this.props.loginWithUserIdAndLastName(this.state.salespersonId, this.state.lastName);
   }
 
   render() {
@@ -72,7 +77,7 @@ export default class LoginScreen extends React.Component {
               onPress={this._login}
               mode="contained"
               uppercase={false}
-              loading={this.state.isLoading}
+              loading={this.props.isLoading}
             >
               Login
             </Button>
@@ -119,3 +124,13 @@ const styles = StyleSheet.create({
     marginTop: 30
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.auth.isLoggingIn
+  }
+}
+
+export default connect(mapStateToProps, {
+  loginWithUserIdAndLastName
+})(LoginScreen)
