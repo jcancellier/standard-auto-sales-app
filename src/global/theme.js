@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, Colors } from 'react-native-paper';
-import { fonts } from './fonts.js'
+import { fonts } from './fonts'
 
 const dark = {
   ...DarkTheme,

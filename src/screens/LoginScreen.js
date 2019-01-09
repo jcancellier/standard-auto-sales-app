@@ -1,7 +1,7 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Text, Headline, Title, Card, TextInput, Button, Caption, Subheading } from 'react-native-paper'
+import { Text, TextInput, Button, Subheading } from 'react-native-paper'
 import * as Animatable from 'react-native-animatable';
 import { theme } from '../global';
 import { loginWithUserIdAndLastName } from '../redux/actions';
@@ -11,9 +11,16 @@ class LoginScreen extends React.Component {
     header: null
   }
 
+  componentDidMount() {
+    // TODO: Remove. Only for testing.
+    // Timed login
+    // setTimeout(() => this._login(), 1000);
+    // this._login();
+  }
+
   state = {
-    lastName: '',
-    salespersonId: ''
+    lastName: 'Jenoure',
+    salespersonId: '1'
   }
 
   _verifyForm = () => {
@@ -35,55 +42,62 @@ class LoginScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <Animatable.View animation="fadeIn" style={styles.container}>
-          <Animatable.View
-            style={styles.headerContainer}
-            animation="fadeInRight"
-          >
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <Animatable.View animation="fadeIn" style={{ flex: 1 }}>
+          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <TouchableWithoutFeedback style={styles.container} onPress={() => Keyboard.dismiss()}>
+              <View style={styles.container}>
 
-            <Animatable.Image
-              animation="pulse"
-              iterationCount={2}
-              delay={1800}
-              source={require('../../assets/images/car.png')}
-              style={styles.headerIcon}
-              resizeMode="contain"
-            />
-            <Subheading style={styles.logoText}>
-              Standard Auto Sales
-            </Subheading>
-          </Animatable.View>
+                <Animatable.View
+                  style={styles.headerContainer}
+                  animation="fadeInRight"
+                >
+                  <Animatable.Image
+                    animation="pulse"
+                    iterationCount={2}
+                    delay={1800}
+                    source={require('../../assets/images/car.png')}
+                    style={styles.headerIcon}
+                    resizeMode="contain"
+                  />
+                  <Subheading style={styles.logoText} adjustsFontSizeToFit numberOfLines={1}>
+                    Standard Auto Sales
+                  </Subheading>
+                </Animatable.View>
 
-          <Animatable.View style={styles.bodyContainer} animation="fadeInRight" delay={800}>
-            <Text style={styles.loginText}>Employee Login</Text>
-            <TextInput
-              label='Last Name'
-              value={this.state.lastName}
-              onChangeText={lastName => this.setState({ lastName })}
-              style={styles.textInput}
-              mode={'outlined'}
-            />
-            <TextInput
-              label='Salesperson ID'
-              value={this.state.salespersonId}
-              onChangeText={salespersonId => this.setState({ salespersonId })}
-              style={styles.textInput}
-              mode={'outlined'}
-              keyboardType="number-pad"
-            />
-            <Button
-              style={styles.loginButton}
-              onPress={this._login}
-              mode="contained"
-              uppercase={false}
-              loading={this.props.isLoading}
-            >
-              Login
-            </Button>
-          </Animatable.View>
+                <Animatable.View style={styles.bodyContainer} animation="fadeInRight" delay={800}>
+                  <Text style={styles.loginText}>Employee Login</Text>
+                  <TextInput
+                    label='Last Name'
+                    value={this.state.lastName}
+                    onChangeText={lastName => this.setState({ lastName })}
+                    style={styles.textInput}
+                    mode={'outlined'}
+                  />
+                  <TextInput
+                    label='Salesperson ID'
+                    value={this.state.salespersonId}
+                    onChangeText={salespersonId => this.setState({ salespersonId })}
+                    style={styles.textInput}
+                    mode={'outlined'}
+                    keyboardType="number-pad"
+                  />
+                  <Button
+                    style={styles.loginButton}
+                    onPress={this._login}
+                    mode="contained"
+                    uppercase={false}
+                    loading={this.props.isLoading}
+                  >
+                    Login
+                  </Button>
+                </Animatable.View>
+
+              </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
         </Animatable.View>
-      </SafeAreaView>
+      </SafeAreaView >
     );
   }
 };

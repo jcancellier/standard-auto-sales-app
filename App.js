@@ -24,7 +24,8 @@ export default class App extends React.Component {
         'cereal-medium': require('./assets/fonts/AirbnbCereal-Medium.ttf'),
       }),
       Asset.loadAsync([
-        require('./assets/images/car.png')
+        require('./assets/images/car.png'),
+        require('./assets/images/male.jpeg')
       ])
     ]);
   }

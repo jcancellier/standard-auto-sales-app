@@ -1,6 +1,6 @@
-import { 
-	createStackNavigator, 
-	createSwitchNavigator 
+import {
+	createStackNavigator,
+	createSwitchNavigator
 } from 'react-navigation';
 
 // Screens
@@ -9,13 +9,18 @@ import DashboardScreen from '../screens/DashboardScreen';
 
 // Authentication Stack
 const AuthStack = createStackNavigator({
-  LoginScreen
+	LoginScreen
 });
 
 // Main Navigation (Root)
-const MainStack = createStackNavigator({
-  DashboardScreen
-})
+const MainStack = createStackNavigator(
+	{
+		DashboardScreen
+	},
+	{
+		headerLayoutPreset: 'left'
+	}
+)
 
 // Controller between AuthStack and MainStack
 export const createRootNavigator = (initialLaunch = true) => {
