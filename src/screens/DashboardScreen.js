@@ -1,11 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
-import { } from 'expo'
+import { SafeAreaView, StyleSheet, View, Image, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { theme } from '../global';
-import { Title, Headline, Caption, Text, Card } from 'react-native-paper';
+import * as Animatable from 'react-native-animatable';
+import { Title, Headline, Caption, Text, Card, Colors, Subheading } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
-import HeaderButtons, { HeaderButton, Item } from 'react-navigation-header-buttons';
+
+const { height, width } = Dimensions.get('window');
 
 class DashboardScreen extends React.Component {
 
@@ -16,56 +17,108 @@ class DashboardScreen extends React.Component {
       color: theme.colors.text,
       fontFamily: theme.fonts.medium,
       fontWeight: 'normal',
-      fontSize: 14
-    }
+      fontSize: 14,
+      paddingLeft: Platform.OS === 'ios' ? 16 : 0
+    },
+    headerLeft: () => {
+      return (
+        <TouchableOpacity onPress={() => alert('open!')}>
+          <Ionicons name="md-funnel" size={16} color={theme.colors.text} style={{ paddingLeft: 14 }} />
+        </TouchableOpacity>
+      );
+    },
   }
 
   render() {
-    const { user } = this.props;
+    const { user, navigation, customers, vehicles } = this.props;
     return (
+
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.headerImageAndTextContainer}>
-            <Image
-              style={styles.headerImage}
-              source={{ uri: user.image}}
-            />
-            <View style={styles.headerTextContainer}>
-              <Text style={styles.headerTitleText}>{`${user.first_name} ${user.last_name}`}</Text>
-              <Caption style={{ paddingTop: 0, marginVertical: 0, lineHeight: 15 }}>{`Salesperson`}</Caption>
+        <Animatable.View animation="fadeIn" style={styles.container}>
+
+          <View style={styles.header}>
+            <View style={styles.headerImageAndTextContainer}>
+              <Image
+                style={styles.headerImage}
+                source={{ uri: user.image }}
+              />
+              <View style={styles.headerTextContainer}>
+                <Text style={styles.headerTitleText}>{`${user.first_name} ${user.last_name}`}</Text>
+                <Caption style={{ paddingTop: 0, marginVertical: 0, lineHeight: 15 }}>{`Salesperson`}</Caption>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.body}>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Card style={{ width: 150, height: 150 }}>
-              <Card.Content>
+          <View style={styles.body}>
+            <View style={{ flexDirection: 'row', flex: 1, maxHeight: width / 2 }}>
+              <View style={{ padding: 10 }} />
 
-              </Card.Content>
-            </Card>
-            <View style={{padding: 10}}/>
-            <Card style={{ width: 150, height: 150 }}>
-              <Card.Content>
+              <Card style={styles.card} onPress={() => navigation.navigate('CustomersStack')}>
+                <Card.Content style={{ flex: 1, justifyContent: 'space-between' }}>
+                  <Ionicons name="md-people" size={32} color={Colors.blue700} />
+                  <View>
+                    <Subheading>
+                      Customers
+                  </Subheading>
+                    <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
+                      {`${customers.length} customers`}
+                    </Caption>
+                  </View>
+                </Card.Content>
+              </Card>
+              <View style={{ padding: 10 }} />
+              <Card style={styles.card} onPress={() => navigation.navigate('SalesStack')} >
+                <Card.Content style={{ flex: 1, justifyContent: 'space-between' }}>
+                  <Ionicons name="md-pricetags" size={32} color={Colors.green700} />
+                  <View>
+                    <Subheading>
+                      Sales
+                  </Subheading>
+                    <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
+                      5 bookings
+                  </Caption>
+                  </View>
+                </Card.Content>
+              </Card>
+              <View style={{ padding: 10 }} />
 
-              </Card.Content>
-            </Card>
+            </View>
+            <View style={{ flexDirection: 'row', maxHeight: width / 2, flex: 1 }}>
+              <View style={{ padding: 10 }} />
+
+              <Card style={styles.card} onPress={() => navigation.navigate('VehiclesStack')} >
+                <Card.Content style={{ flex: 1, justifyContent: 'space-between' }}>
+                  <Ionicons name="md-car" size={32} color={Colors.red600} />
+                  <View>
+                    <Subheading style={{ marginVertical: 0 }}>
+                      Vehicles
+                  </Subheading>
+                    <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
+                      {`${vehicles.length} in stock`}
+                    </Caption>
+                  </View>
+                </Card.Content>
+              </Card>
+              <View style={{ padding: 10 }} />
+              <Card style={styles.card} onPress={() => navigation.navigate('VisitsStack')}>
+                <Card.Content style={{ flex: 1, justifyContent: 'space-between' }}>
+                  <Ionicons name="md-calendar" size={32} color={Colors.orange700} />
+                  <View>
+                    <Subheading>
+                      Visits
+                  </Subheading>
+                    <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
+                      2 scheduled
+                  </Caption>
+                  </View>
+                </Card.Content>
+              </Card>
+              <View style={{ padding: 10 }} />
+
+            </View>
           </View>
-          <View style={{padding: 10}}/>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Card style={{ width: 150, height: 150 }}>
-              <Card.Content>
-
-              </Card.Content>
-            </Card>
-            <View style={{padding: 10}}/>
-            <Card style={{ width: 150, height: 150 }}>
-              <Card.Content>
-
-              </Card.Content>
-            </Card>
-          </View>
-        </View>
+        </Animatable.View>
       </SafeAreaView>
+
     );
   }
 }
@@ -94,7 +147,7 @@ const styles = StyleSheet.create({
   headerImage: {
     height: 55,
     width: 55,
-    borderRadius: 55/2,
+    borderRadius: 55 / 2,
     marginHorizontal: 20,
 
     overflow: 'hidden',
@@ -103,12 +156,18 @@ const styles = StyleSheet.create({
   body: {
     flex: 8,
     justifyContent: 'center'
+  },
+  card: {
+    flex: 1,
+    marginVertical: 10
   }
 })
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.salesperson
+    user: state.auth.salesperson,
+    customers: state.customers.customers,
+    vehicles: state.vehicles.vehicles
   }
 }
 

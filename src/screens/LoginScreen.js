@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Text, TextInput, Button, Subheading } from 'react-native-paper'
 import * as Animatable from 'react-native-animatable';
 import { theme } from '../global';
-import { loginWithUserIdAndLastName } from '../redux/actions';
+import { loginWithUserIdAndLastName, fetchAllCustomers, fetchAllVehicles } from '../redux/actions';
+
 
 class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -15,7 +16,9 @@ class LoginScreen extends React.Component {
     // TODO: Remove. Only for testing.
     // Timed login
     // setTimeout(() => this._login(), 1000);
-    // this._login();
+    this._login();
+    this.props.fetchAllCustomers();
+    this.props.fetchAllVehicles();
   }
 
   state = {
@@ -106,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    paddingTop: 40,
     backgroundColor: theme.colors.background
   },
   headerContainer: {
@@ -146,5 +150,7 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-  loginWithUserIdAndLastName
+  loginWithUserIdAndLastName,
+  fetchAllCustomers,
+  fetchAllVehicles
 })(LoginScreen)

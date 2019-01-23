@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
 import store from './src/redux/store';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, UIManager } from 'react-native';
 import { AppLoading, Font, Asset } from 'expo';
 import { createRootNavigator } from './src/navigation'
 import { theme } from './src/global';
@@ -11,6 +11,10 @@ import NavigationService from './src/navigation/navigationService';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false
+  }
+
+  componentDidMount() {
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
   _loadResourcesAsync = async () => {

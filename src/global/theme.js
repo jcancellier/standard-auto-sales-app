@@ -24,7 +24,7 @@ const light = {
 }
 
 const theme = {
-  ...dark
+  ...light
 };
 
 export { theme };
