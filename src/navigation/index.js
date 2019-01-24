@@ -7,10 +7,19 @@ import {
 import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 
+
+// Dashboard options
 import CustomersScreen from '../screens/CustomersScreen';
+
 import SalesScreen from '../screens/SalesScreen';
+import CreateSaleScreen from '../screens/CreateSaleScreen';
+import ChooseCustomerScreen from '../screens/ChooseCustomerScreen';
+import ChooseVehicleScreen from '../screens/ChooseVehicleScreen';
+
 import VechiclesScreen from '../screens/VehiclesScreen';
+
 import VisitsScreen from '../screens/VisitsScreen';
+// 
 
 import CustomerScreen from '../screens/CustomerScreen';
 
@@ -21,20 +30,28 @@ const AuthStack = createStackNavigator({
 
 const DashboardStack = createStackNavigator({
 	DashboardScreen
-},{
-	headerLayoutPreset: 'left'
-})
+}, {
+		headerLayoutPreset: 'left'
+	})
 
 const CustomersStack = createStackNavigator({
 	CustomersScreen,
 	CustomerScreen
 }, {
-	headerLayoutPreset: 'left'
-})
+		headerLayoutPreset: 'left'
+	})
 
-const SalesStack = createStackNavigator({
-	SalesScreen
-})
+const SalesStack = createStackNavigator(
+	{
+		SalesScreen,
+		CreateSaleScreen,
+		ChooseCustomerScreen,
+		ChooseVehicleScreen
+	},
+	{
+		mode: 'modal'
+	}
+)
 
 const VehiclesStack = createStackNavigator({
 	VechiclesScreen

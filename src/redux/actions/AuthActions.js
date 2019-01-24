@@ -2,7 +2,9 @@ import NavigationService from '../../navigation/navigationService';
 import {
   LOGIN_WITH_USER_ID_AND_PASSWORD_START,
   LOGIN_WITH_USER_ID_AND_PASSWORD_SUCCESS,
-  LOGIN_WITH_USER_ID_AND_PASSWORD_FAIL
+  LOGIN_WITH_USER_ID_AND_PASSWORD_FAIL,
+  SET_VISITS,
+  SET_SALES
 } from './types';
 
 import { fetchAllCustomers } from './CustomerActions';
@@ -22,6 +24,14 @@ export const loginWithUserIdAndLastName = (userId = 1, lastName = '') => {
         dispatch({
           type: LOGIN_WITH_USER_ID_AND_PASSWORD_SUCCESS,
           payload: salesperson
+        })
+        dispatch({
+          type: SET_VISITS,
+          payload: salesperson.visits
+        })
+        dispatch({
+          type: SET_SALES,
+          payload: salesperson.sales
         })
         NavigationService.navigate('MainStack');
       })

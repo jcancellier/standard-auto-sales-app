@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Title } from 'react-native-paper';
 import { theme } from '../global';
 
-export default class VisitsScreen extends Component {
+class VisitsScreen extends Component {
 
-  static navigationOptions = ({navigation, screenProps}) => ({
+  static navigationOptions = ({ navigation, screenProps }) => ({
     title: '',
     headerStyle: { backgroundColor: theme.colors.background, borderBottomWidth: 0, zIndex: 0, elevation: 0 },
     headerTitleStyle: {
@@ -24,7 +25,11 @@ export default class VisitsScreen extends Component {
       );
     }
   })
-  
+
+  componentDidMount() {
+    console.log(this.props.visits)
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -40,3 +45,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    visits: state.visits.visits
+  }
+}
+
+export default connect(mapStateToProps)(VisitsScreen)

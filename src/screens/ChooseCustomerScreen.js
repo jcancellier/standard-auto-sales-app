@@ -1,40 +1,26 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, View, Platform } from 'react-native';
+import { Constants } from 'expo';
+import { ChooseCustomerList } from '../components/customers';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { Title, FAB, Colors } from 'react-native-paper';
+import { Title, Headline } from 'react-native-paper';
 import { theme } from '../global';
-import { SaleList } from '../components/sales';
 
-class SalesScreen extends Component {
+
+class ChooseCustomerScreen extends Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     header: null
   })
 
-  componentDidMount() {
-    this._makeSale();
-  }
-
-  _makeSale = () => {
-    this.props.navigation.navigate('CreateSaleScreen');
-  }
-
   render() {
-    const { sales, navigation } = this.props;
+    const { customers } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <SaleList sales={sales} />
+          <ChooseCustomerList customers={customers} />
         </View>
-        <FAB
-          style={styles.fab}
-          medium
-          icon="attach-money"
-          onPress={this._makeSale}
-        // color={Colors.green700}
-        // label="New Sale"
-        />
       </SafeAreaView >
     );
   }
@@ -60,19 +46,13 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontFamily: theme.fonts.medium
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
   }
 })
 
 const mapStateToProps = (state) => {
   return {
-    sales: state.sales.sales
+    customers: state.customers.customers
   }
 }
 
-export default connect(mapStateToProps)(SalesScreen);
+export default connect(mapStateToProps)(ChooseCustomerScreen);

@@ -5,6 +5,7 @@ import { theme } from '../global';
 import * as Animatable from 'react-native-animatable';
 import { Title, Headline, Caption, Text, Card, Colors, Subheading } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import navigationService from '../navigation/navigationService';
 
 const { height, width } = Dimensions.get('window');
 
@@ -29,8 +30,12 @@ class DashboardScreen extends React.Component {
     },
   }
 
+  componentDidMount() {
+    navigationService.navigate('SalesStack');
+  }
+
   render() {
-    const { user, navigation, customers, vehicles } = this.props;
+    const { user, navigation, customers, vehicles, visits, sales } = this.props;
     return (
 
       <SafeAreaView style={styles.container}>
@@ -74,8 +79,8 @@ class DashboardScreen extends React.Component {
                       Sales
                   </Subheading>
                     <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
-                      5 bookings
-                  </Caption>
+                      {`${sales.length} bookings`}
+                    </Caption>
                   </View>
                 </Card.Content>
               </Card>
@@ -107,8 +112,8 @@ class DashboardScreen extends React.Component {
                       Visits
                   </Subheading>
                     <Caption style={{ marginVertical: 0, paddingTop: 0, lineHeight: 15 }}>
-                      2 scheduled
-                  </Caption>
+                      {`${visits.length} scheduled`}
+                    </Caption>
                   </View>
                 </Card.Content>
               </Card>
@@ -167,7 +172,10 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.salesperson,
     customers: state.customers.customers,
-    vehicles: state.vehicles.vehicles
+    vehicles: state.vehicles.vehicles,
+    visits: state.visits.visits,
+    sales: state.sales.sales,
+
   }
 }
 

@@ -8,7 +8,7 @@ const dark = {
   colors: {
     ...DarkTheme.colors,
     primary: Colors.lightBlue500,
-    accent: '#f1c4of'
+    accent: Colors.green700
   }
 }
 
@@ -19,12 +19,12 @@ const light = {
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.lightBlue500,
-    accent: '#f1c4of'
+    accent: Colors.green700
   }
 }
 
 const theme = {
-  ...light
+  ...dark
 };
 
 export { theme };
