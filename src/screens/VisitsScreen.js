@@ -26,10 +26,6 @@ class VisitsScreen extends Component {
     }
   })
 
-  componentDidMount() {
-    console.log(this.props.visits)
-  }
-
   render() {
     return (
       <SafeAreaView style={styles.container}>

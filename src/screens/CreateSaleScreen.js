@@ -20,10 +20,6 @@ class CreateSaleScreen extends Component {
     header: null
   })
 
-  componentDidMount() {
-    console.log(this.props.customer)
-  }
-
   _renderCustomerDetailsRow = (heading = '', detail = '', color) => {
     return (
       <View style={{ flexDirection: 'row' }}>
