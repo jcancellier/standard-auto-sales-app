@@ -13,7 +13,7 @@ class SalesScreen extends Component {
   })
 
   componentDidMount() {
-    this._makeSale();
+    // this._makeSale();
   }
 
   _makeSale = () => {
@@ -32,6 +32,7 @@ class SalesScreen extends Component {
           medium
           icon="attach-money"
           onPress={this._makeSale}
+          label="new sale"
         // color={Colors.green700}
         // label="New Sale"
         />

@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, View, Image, Dimensions, TouchableOpacity, Pl
 import { connect } from 'react-redux';
 import { theme } from '../global';
 import * as Animatable from 'react-native-animatable';
-import { Title, Headline, Caption, Text, Card, Colors, Subheading } from 'react-native-paper';
+import { Paragraph, Button, Caption, Text, Card, Colors, Subheading, Dialog, Portal } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import navigationService from '../navigation/navigationService';
 
@@ -11,27 +11,41 @@ const { height, width } = Dimensions.get('window');
 
 class DashboardScreen extends React.Component {
 
-  static navigationOptions = {
-    title: 'Standard Auto Sales',
-    headerStyle: { backgroundColor: theme.colors.background, borderBottomWidth: 0, zIndex: 0, elevation: 0 },
-    headerTitleStyle: {
-      color: theme.colors.text,
-      fontFamily: theme.fonts.medium,
-      fontWeight: 'normal',
-      fontSize: 14,
-      paddingLeft: Platform.OS === 'ios' ? 16 : 0
-    },
-    headerLeft: () => {
-      return (
-        <TouchableOpacity onPress={() => alert('open!')}>
-          <Ionicons name="md-funnel" size={16} color={theme.colors.text} style={{ paddingLeft: 14 }} />
-        </TouchableOpacity>
-      );
-    },
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Standard Auto Sales',
+      headerStyle: { backgroundColor: theme.colors.background, borderBottomWidth: 0, zIndex: 0, elevation: 0 },
+      headerTitleStyle: {
+        color: theme.colors.text,
+        fontFamily: theme.fonts.medium,
+        fontWeight: 'normal',
+        fontSize: 14,
+        paddingLeft: Platform.OS === 'ios' ? 16 : 0
+      },
+      headerLeft: () => {
+        return (
+          <TouchableOpacity onPress={() => navigation.state.params.showExitDialog()}>
+            <Ionicons name="md-funnel" size={16} color={theme.colors.text} style={{ paddingLeft: 14 }} />
+          </TouchableOpacity>
+        );
+      },
+    }
   }
 
+  state = {
+    exitDialogVisible: false
+  }
+
+  _showExitDialog = () => this.setState({ exitDialogVisible: true });
+  _hideExitDialog = () => this.setState({ exitDialogVisible: false });
+
   componentDidMount() {
-    navigationService.navigate('SalesStack');
+    // TODO: remove. only for automated stack movement
+    // navigationService.navigate('SalesStack');
+
+    this.props.navigation.setParams({
+      showExitDialog: this._showExitDialog
+    })
   }
 
   render() {
@@ -121,10 +135,35 @@ class DashboardScreen extends React.Component {
 
             </View>
           </View>
+          {this._renderExitDialog()}
         </Animatable.View>
       </SafeAreaView>
-
     );
+  }
+
+  _renderExitDialog = () => {
+    return (
+      <Portal>
+        <Dialog
+          visible={this.state.exitDialogVisible}
+          onDismiss={this._hideExitDialog}
+          dismissable={false}
+          >
+          <Dialog.Title>Logout</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Are you sure you would like to logout?</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={this._hideExitDialog}>Cancel</Button>
+            <Button onPress={this._handleLogout}>Ok</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    )
+  }
+
+  _handleLogout = () => {
+    this.props.navigation.navigate('AuthStack')
   }
 }
 

@@ -89,3 +89,4 @@ export const createRootNavigator = (initialLaunch = true) => {
 		}
 	);
 };
+

@@ -4,7 +4,7 @@ import { Constants } from 'expo';
 import { CustomerList } from '../components/customers';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { Title, Headline, Divider, Button, Text, TextInput, Colors, Paragraph } from 'react-native-paper';
+import { Title, Headline, Divider, Button, Text, TextInput, Colors, Paragraph, IconButton } from 'react-native-paper';
 import { theme } from '../global';
 import NavigationService from '../navigation/navigationService';
 import { setSaleCustomer, setSaleVehicle } from '../redux/actions'
@@ -48,14 +48,22 @@ class CreateSaleScreen extends Component {
     }
     return (
       <View style={{ margin: 10 }}>
-        <Title style={{ fontSize: 20, alignSelf: 'center' }}>{`${first_name} ${last_name}`}</Title>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <Title style={{ fontSize: 21, alignSelf: 'center' }}>{`${first_name} ${last_name}`}</Title>
+          <IconButton
+            icon="edit"
+            color={Colors.red700}
+            size={20}
+            onPress={() => navigation.navigate('ChooseCustomerScreen')}
+          />
+        </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View>
             {this._renderCustomerDetailsRow('Sex: ', sex === 'm' ? 'Male' : 'Female')}
             {this._renderCustomerDetailsRow('Drivers License: ', drivers_license)}
             {this._renderCustomerDetailsRow('Birth Date: ', dob)}
           </View>
-          <View style={{width: 0.2, backgroundColor: theme.colors.surface}}/>
+          <View style={{ width: 0.2, backgroundColor: theme.colors.surface }} />
           <View>
             {this._renderCustomerDetailsRow('Address')}
             {this._renderCustomerDetailsRow('', street)}
@@ -69,11 +77,13 @@ class CreateSaleScreen extends Component {
   _renderAddVehicle = () => {
     const { vehicle, navigation } = this.props;
 
-    return (
-      <Button style={styles.addDetailsButton} icon='directions-car' onPress={() => navigation.navigate('ChooseVehicleScreen')}>
-        Add Vehicle
+    if (Object.keys(vehicle).length === 0) {
+      return (
+        <Button style={styles.addDetailsButton} icon='directions-car' onPress={() => navigation.navigate('ChooseVehicleScreen')}>
+          Add Vehicle
       </Button>
-    );
+      );
+    }
   }
 
   _onExit = () => {
