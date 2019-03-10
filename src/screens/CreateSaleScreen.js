@@ -24,13 +24,13 @@ class CreateSaleScreen extends Component {
     return (
       <View style={{ flexDirection: 'row' }}>
         <Paragraph style={{ fontFamily: theme.fonts.medium }}>{heading}</Paragraph>
-        {detail.length > 0 ?
+        {
           <Paragraph
             style={{ fontFamily: theme.fonts.light, color: color ? color : theme.colors.text }}
             color={color ? color : theme.colors.text}
           >
             {detail}
-          </Paragraph> : null
+          </Paragraph>
         }
       </View>
     );
@@ -76,6 +76,15 @@ class CreateSaleScreen extends Component {
 
   _renderAddVehicle = () => {
     const { vehicle, navigation } = this.props;
+    const {
+      maker,
+      year,
+      odo_reading,
+      vin,
+      date_received,
+      invoice_price,
+      testdrives
+    } = vehicle;
 
     if (Object.keys(vehicle).length === 0) {
       return (
@@ -84,6 +93,32 @@ class CreateSaleScreen extends Component {
       </Button>
       );
     }
+    return (
+      <View style={{ margin: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <Title style={{ fontSize: 21, alignSelf: 'center' }}>{`${maker.make} ${maker.model}`}</Title>
+          <IconButton
+            icon="edit"
+            color={Colors.red700}
+            size={20}
+            onPress={() => navigation.navigate('ChooseVehicleScreen')}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View>
+            {this._renderCustomerDetailsRow('Year: ', year)}
+            {this._renderCustomerDetailsRow('Odometer: ', odo_reading)}
+            {this._renderCustomerDetailsRow('VIN: ', vin)}
+          </View>
+          <View style={{ width: 0.2, backgroundColor: theme.colors.surface }} />
+          <View>
+            {this._renderCustomerDetailsRow('Received: ', date_received)}
+            {this._renderCustomerDetailsRow('Listing Price: ', invoice_price)}
+            {this._renderCustomerDetailsRow('Test Drives: ', testdrives.length)}
+          </View>
+        </View>
+      </View>
+    );
   }
 
   _onExit = () => {
@@ -105,15 +140,15 @@ class CreateSaleScreen extends Component {
               <Text style={{ fontFamily: theme.fonts.medium, fontSize: 18 }}>New Sale</Text>
             </View>
             <View style={styles.content}>
-              <View style={{ flex: 4 }}>
+              <View style={{ flex: 6 }}>
                 <Divider />
                 {this._renderAddCustomer()}
                 <Divider />
                 {this._renderAddVehicle()}
-                <Divider style={{ marginBottom: 25 }} />
+                <Divider />
               </View>
-              <View style={{ flex: 4, justifyContent: 'space-between', marginBottom: 40 }}>
-                <KeyboardAvoidingView behavior="padding">
+              <View style={{ flex: 4, justifyContent: 'center', marginBottom: 20 }}>
+                <KeyboardAvoidingView behavior="padding" style={{flex: 3, justifyContent: 'center'}}>
                   <TextInput
                     label='$ Sale Price'
                     value={this.state.sale_price}
@@ -122,15 +157,10 @@ class CreateSaleScreen extends Component {
                     mode={'outlined'}
                     keyboardType={'number-pad'}
                   />
-                  <TextInput
-                    label='Add Notes...'
-                    value={this.state.notes}
-                    onChangeText={notes => this.setState({ notes })}
-                    style={{ marginHorizontal: 20 }}
-                    mode={'outlined'}
-                  />
                 </KeyboardAvoidingView>
-                <Button mode="contained" color={Colors.green700} style={{ marginHorizontal: 15, paddingVertical: 10 }} icon="attach-money">Make Sale</Button>
+                <View style={{flex: 1}}>
+                  <Button mode="contained" color={Colors.green700} style={{ marginHorizontal: 15, paddingVertical: 10 }} icon="attach-money">Make Sale</Button>
+                </View>
               </View>
             </View>
           </View>

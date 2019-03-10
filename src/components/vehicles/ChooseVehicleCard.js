@@ -3,6 +3,9 @@ import { StyleSheet, LayoutAnimation, View } from 'react-native';
 import { Card, Title, Caption, Button, Colors, Subheading, Paragraph, Text } from 'react-native-paper';
 import NavigationService from '../../navigation/navigationService'
 import { theme } from '../../global'
+import store from '../../redux/store';
+import { SET_SALE_VEHICLE } from '../../redux/actions/types';
+import navigationService from '../../navigation/navigationService';
 
 
 class ChooseVehicleCard extends React.Component {
@@ -41,6 +44,11 @@ class ChooseVehicleCard extends React.Component {
     );
   }
 
+  _onSelectVehicleButtonPress = () => {
+    store.dispatch({ type: SET_SALE_VEHICLE, payload: this.props.vehicle });
+    navigationService.navigate('CreateSaleScreen')
+  }
+
   render() {
     const { vehicle } = this.props;
     return (
@@ -60,7 +68,7 @@ class ChooseVehicleCard extends React.Component {
           {this.state.expanded && this._renderVehicleDetails()}
         </Card.Content>
         <Card.Actions style={{ justifyContent: 'flex-end' }}>
-          <Button color={theme.colors.primary} mode='contained' style={{ margin: 5, marginTop: 0 }} onPress={() => alert('pressed')}>Select</Button>
+          <Button color={theme.colors.primary} mode='contained' style={{ margin: 5, marginTop: 0 }} onPress={this._onSelectVehicleButtonPress}>Select</Button>
         </Card.Actions>
       </Card>
     )
