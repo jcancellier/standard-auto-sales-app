@@ -1,19 +1,44 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View, Platform, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import {
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Constants } from 'expo';
 import { CustomerList } from '../components/customers';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
-import { Title, Headline, Divider, Button, Text, TextInput, Colors, Paragraph, IconButton } from 'react-native-paper';
+import {
+  Title,
+  Headline,
+  Divider,
+  Button,
+  Text,
+  TextInput,
+  Colors,
+  Paragraph,
+  IconButton,
+  Portal,
+  Dialog
+} from 'react-native-paper';
 import { theme } from '../global';
 import NavigationService from '../navigation/navigationService';
-import { setSaleCustomer, setSaleVehicle } from '../redux/actions'
+import { setSaleCustomer, setSaleVehicle, postSale, setConfirmSaleDialogVisible } from '../redux/actions'
+import { createAnimatableComponent } from 'react-native-animatable';
+import AuthReducer from '../redux/reducers/AuthReducer';
 
 class CreateSaleScreen extends Component {
 
   state = {
     sale_price: '',
-    notes: ''
+    notes: '',
+    confirmSaleDialogVisible: false
   }
 
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -113,7 +138,7 @@ class CreateSaleScreen extends Component {
           <View style={{ width: 0.2, backgroundColor: theme.colors.surface }} />
           <View>
             {this._renderCustomerDetailsRow('Received: ', date_received)}
-            {this._renderCustomerDetailsRow('Listing Price: ', invoice_price)}
+            {this._renderCustomerDetailsRow('Listing Price: ', "$" + invoice_price)}
             {this._renderCustomerDetailsRow('Test Drives: ', testdrives.length)}
           </View>
         </View>
@@ -121,10 +146,64 @@ class CreateSaleScreen extends Component {
     );
   }
 
+  _renderConfirmSaleDialog = () => {
+    if (!this.props.confirmSaleDialogVisible)
+      return;
+    return (
+      <Portal>
+        <Dialog
+          visible={this.props.confirmSaleDialogVisible}
+          onDismiss={this._hideConfirmSaleDialog}
+          dismissable={false}
+          >
+          <Dialog.Title>Confirm Sale?</Dialog.Title>
+          <Dialog.Actions>
+            <Button onPress={this._hideConfirmSaleDialog} color={Colors.red400}>Go Back</Button>
+            <Button loading={this.props.isPostingSale} onPress={this._onConfirmConfirmSaleDialog}>Ok</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    )
+  }
+
   _onExit = () => {
     NavigationService.navigate('SalesScreen');
     this.props.setSaleCustomer({});
     this.props.setSaleVehicle({});
+  }
+
+  _constructSale = () => {
+    const { customer, vehicle, salesperson } = this.props;
+
+    const maxOdoReading = 100;
+    const minOdoReading = vehicle.odo_reading;
+
+    return {
+      customer_id: customer.id,
+      salesperson_id: salesperson.id,
+      vehicle_id: vehicle.id,
+      date: new Date(),
+      sale_price: this.state.sale_price,
+      odo_reading: Math.floor(Math.random() * (maxOdoReading - minOdoReading) ) + minOdoReading
+    }
+  }
+
+  _showConfirmSaleDialog = () => {
+    this.props.setConfirmSaleDialogVisible(true);
+  }
+
+  _onConfirmConfirmSaleDialog = () => {
+    const sale = this._constructSale();
+    this.props.postSale(sale);
+  }
+
+  _hideConfirmSaleDialog = () => {
+    this.props.setConfirmSaleDialogVisible(false);
+  }
+
+  componentDidMount() {
+    console.log('sales bitch!!!!')
+    console.log(this.props.sales);
   }
 
   render() {
@@ -148,7 +227,7 @@ class CreateSaleScreen extends Component {
                 <Divider />
               </View>
               <View style={{ flex: 4, justifyContent: 'center', marginBottom: 20 }}>
-                <KeyboardAvoidingView behavior="padding" style={{flex: 3, justifyContent: 'center'}}>
+                <KeyboardAvoidingView behavior="padding" style={{ flex: 3, justifyContent: 'center'}}>
                   <TextInput
                     label='$ Sale Price'
                     value={this.state.sale_price}
@@ -158,13 +237,22 @@ class CreateSaleScreen extends Component {
                     keyboardType={'number-pad'}
                   />
                 </KeyboardAvoidingView>
-                <View style={{flex: 1}}>
-                  <Button mode="contained" color={Colors.green700} style={{ marginHorizontal: 15, paddingVertical: 10 }} icon="attach-money">Make Sale</Button>
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Button
+                    mode="contained"
+                    color={Colors.green700}
+                    style={{ marginHorizontal: 15 }}
+                    icon="attach-money"
+                    onPress={this._showConfirmSaleDialog}
+                  >
+                    Make Sale
+                  </Button>
                 </View>
               </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
+        {this._renderConfirmSaleDialog()}
       </SafeAreaView >
     );
   }
@@ -194,11 +282,17 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     customer: state.sales.customer,
-    vehicle: state.sales.vehicle
+    vehicle: state.sales.vehicle,
+    salesperson: state.auth.salesperson,
+    sales: state.sales.sales,
+    isPostingSale: state.sales.isLoadingPostSale,
+    confirmSaleDialogVisible: state.sales.confirmSaleDialogVisible
   }
 }
 
 export default connect(mapStateToProps, {
   setSaleCustomer,
-  setSaleVehicle
+  setSaleVehicle,
+  postSale,
+  setConfirmSaleDialogVisible
 })(CreateSaleScreen);

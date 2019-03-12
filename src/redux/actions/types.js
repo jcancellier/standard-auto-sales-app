@@ -20,3 +20,7 @@ export const SET_VISITS = "set_visits";
 export const SET_SALES = "set_sales";
 export const SET_SALE_CUSTOMER = "set_sale_customer";
 export const SET_SALE_VEHICLE = "set_sale_vehicle";
+export const POST_SALE_START = "post_sale_start";
+export const POST_SALE_SUCCESS = "post_sale_success";
+export const POST_SALE_FAIL = "post_sale_fail";
+export const SET_CONFIRM_SALE_DIALOG_VISIBILE = "set_confirm_sale_dialog_visible";
