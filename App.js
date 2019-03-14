@@ -7,6 +7,7 @@ import { AppLoading, Font, Asset } from 'expo';
 import { createRootNavigator } from './src/navigation'
 import { theme } from './src/global';
 import NavigationService from './src/navigation/navigationService';
+import Index from './src/index';
 
 export default class App extends React.Component {
   state = {
@@ -67,6 +68,7 @@ export default class App extends React.Component {
         <Provider store={store}>
           <PaperProvider theme={theme}>
             {this._renderRootNavigator()}
+            {<Index />}
           </ PaperProvider>
         </Provider>
       )

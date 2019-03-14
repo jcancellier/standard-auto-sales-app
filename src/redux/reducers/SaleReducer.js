@@ -5,7 +5,8 @@ import {
   POST_SALE_START,
   POST_SALE_SUCCESS,
   POST_SALE_FAIL,
-  SET_CONFIRM_SALE_DIALOG_VISIBILE
+  SET_CONFIRM_SALE_DIALOG_VISIBILE,
+  SET_SALE_GENERATED_SNACKBAR_VISIBLE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -13,7 +14,8 @@ const INITIAL_STATE = {
   customer: {},
   vehicle: {},
   isLoadingPostSale: false,
-  confirmSaleDialogVisible: false
+  confirmSaleDialogVisible: false,
+  saleGeneratedSnackbarVisible: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,7 +33,9 @@ export default (state = INITIAL_STATE, action) => {
     case POST_SALE_FAIL:
       return { ...state, isLoadingPostSale: false }
     case SET_CONFIRM_SALE_DIALOG_VISIBILE:
-      return { ... state, confirmSaleDialogVisible: action.payload }
+      return { ...state, confirmSaleDialogVisible: action.payload }
+    case SET_SALE_GENERATED_SNACKBAR_VISIBLE:
+      return { ...state, saleGeneratedSnackbarVisible: action.payload }
     default:
       return state;
   }

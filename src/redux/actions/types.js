@@ -24,3 +24,4 @@ export const POST_SALE_START = "post_sale_start";
 export const POST_SALE_SUCCESS = "post_sale_success";
 export const POST_SALE_FAIL = "post_sale_fail";
 export const SET_CONFIRM_SALE_DIALOG_VISIBILE = "set_confirm_sale_dialog_visible";
+export const SET_SALE_GENERATED_SNACKBAR_VISIBLE = "set_sale_generated_snackbar_visible";

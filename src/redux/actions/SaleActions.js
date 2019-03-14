@@ -5,6 +5,7 @@ import {
   POST_SALE_SUCCESS,
   POST_SALE_FAIL,
   SET_CONFIRM_SALE_DIALOG_VISIBILE,
+  SET_SALE_GENERATED_SNACKBAR_VISIBLE,
 } from './types'
 
 import { addSale } from '../../api';
@@ -32,10 +33,14 @@ export const postSale = (sale) => {
       .then((sale) => {
         dispatch({ type: POST_SALE_SUCCESS, payload: sale })
         dispatch({ type: SET_CONFIRM_SALE_DIALOG_VISIBILE, payload: false})
-        navigationService.navigate('SalesScreen');
+        navigationService.navigate('DashboardScreen');
+        dispatch({ type: SET_SALE_GENERATED_SNACKBAR_VISIBLE, payload: true});
+        dispatch(setSaleCustomer({}));
+        dispatch(setSaleVehicle({}));    
       })
       .catch((err) => {
         dispatch({ type: POST_SALE_FAIL, payload: err})
+        alert('invalid data');
       });
   }
 }
@@ -43,6 +48,13 @@ export const postSale = (sale) => {
 export const setConfirmSaleDialogVisible = (visible) => {
   return {
     type: SET_CONFIRM_SALE_DIALOG_VISIBILE,
+    payload: visible
+  }
+}
+
+export const setSaleGeneratedSnackbarVisible = (visible) => {
+  return {
+    type: SET_SALE_GENERATED_SNACKBAR_VISIBLE,
     payload: visible
   }
 }

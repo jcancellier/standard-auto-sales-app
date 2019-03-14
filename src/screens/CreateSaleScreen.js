@@ -10,8 +10,6 @@ import {
   Keyboard,
   KeyboardAvoidingView
 } from 'react-native';
-import { Constants } from 'expo';
-import { CustomerList } from '../components/customers';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -25,13 +23,17 @@ import {
   Paragraph,
   IconButton,
   Portal,
-  Dialog
+  Dialog,
 } from 'react-native-paper';
 import { theme } from '../global';
 import NavigationService from '../navigation/navigationService';
-import { setSaleCustomer, setSaleVehicle, postSale, setConfirmSaleDialogVisible } from '../redux/actions'
-import { createAnimatableComponent } from 'react-native-animatable';
-import AuthReducer from '../redux/reducers/AuthReducer';
+import {
+  setSaleCustomer,
+  setSaleVehicle,
+  postSale,
+  setConfirmSaleDialogVisible
+} from '../redux/actions'
+import { fonts } from '../global/fonts';
 
 class CreateSaleScreen extends Component {
 
@@ -115,7 +117,7 @@ class CreateSaleScreen extends Component {
       return (
         <Button style={styles.addDetailsButton} icon='directions-car' onPress={() => navigation.navigate('ChooseVehicleScreen')}>
           Add Vehicle
-      </Button>
+        </Button>
       );
     }
     return (
@@ -149,14 +151,36 @@ class CreateSaleScreen extends Component {
   _renderConfirmSaleDialog = () => {
     if (!this.props.confirmSaleDialogVisible)
       return;
+
+    let isProfit = this.state.sale_price - this.props.vehicle.invoice_price >= 0;
     return (
       <Portal>
         <Dialog
           visible={this.props.confirmSaleDialogVisible}
           onDismiss={this._hideConfirmSaleDialog}
           dismissable={false}
-          >
+        >
           <Dialog.Title>Confirm Sale?</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Original Price: ${this.props.vehicle.invoice_price}</Paragraph>
+            <Paragraph style={{ fontFamily: fonts.medium, color: isProfit ? Colors.green500 : Colors.red500 }}>Sale Price:        ${this.state.sale_price}</Paragraph>
+            <Paragraph>.</Paragraph>
+            <Paragraph>.</Paragraph>
+            <Paragraph>.</Paragraph>
+            {
+              !isProfit ?
+                <Paragraph style={{fontFamily: fonts.regular}}>With this purchase you will be generating a deficit of: </Paragraph>
+                :
+                <Paragraph style={{fontFamily: fonts.regular}}>With this purchase you will be generating a profit of: </Paragraph>
+            }
+            {
+              !isProfit ?
+                <Paragraph style={{ color: Colors.red500 }}>${this.props.vehicle.invoice_price - this.state.sale_price}</Paragraph>
+                :
+                <Paragraph style={{ color: Colors.green500 }}>${this.state.sale_price - this.props.vehicle.invoice_price}</Paragraph>
+
+            }
+          </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={this._hideConfirmSaleDialog} color={Colors.red400}>Go Back</Button>
             <Button loading={this.props.isPostingSale} onPress={this._onConfirmConfirmSaleDialog}>Ok</Button>
@@ -175,7 +199,7 @@ class CreateSaleScreen extends Component {
   _constructSale = () => {
     const { customer, vehicle, salesperson } = this.props;
 
-    const maxOdoReading = 100;
+    const maxOdoReading = vehicle.odo_reading + 100;
     const minOdoReading = vehicle.odo_reading;
 
     return {
@@ -184,7 +208,7 @@ class CreateSaleScreen extends Component {
       vehicle_id: vehicle.id,
       date: new Date(),
       sale_price: this.state.sale_price,
-      odo_reading: Math.floor(Math.random() * (maxOdoReading - minOdoReading) ) + minOdoReading
+      odo_reading: Math.floor(Math.random() * (maxOdoReading - minOdoReading)) + minOdoReading
     }
   }
 
@@ -199,11 +223,6 @@ class CreateSaleScreen extends Component {
 
   _hideConfirmSaleDialog = () => {
     this.props.setConfirmSaleDialogVisible(false);
-  }
-
-  componentDidMount() {
-    console.log('sales bitch!!!!')
-    console.log(this.props.sales);
   }
 
   render() {
@@ -227,7 +246,7 @@ class CreateSaleScreen extends Component {
                 <Divider />
               </View>
               <View style={{ flex: 4, justifyContent: 'center', marginBottom: 20 }}>
-                <KeyboardAvoidingView behavior="padding" style={{ flex: 3, justifyContent: 'center'}}>
+                <KeyboardAvoidingView behavior="padding" style={{ flex: 3, justifyContent: 'center' }}>
                   <TextInput
                     label='$ Sale Price'
                     value={this.state.sale_price}

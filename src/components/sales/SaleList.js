@@ -10,7 +10,6 @@ import NavigationService from '../../navigation/navigationService';
 class SaleList extends React.PureComponent {
 
   state = {
-    data: [...this.props.sales],
     searchTerm: "",
     searchAttribute: "date",
     ignoreCase: true
@@ -45,10 +44,11 @@ class SaleList extends React.PureComponent {
         </View>
         <SearchableFlatList
           ListHeaderComponent={this._renderHeaderComponent}
-          style={styles.list} data={data} searchTerm={searchTerm}
+          style={styles.list} data={this.props.sales} searchTerm={searchTerm}
           searchAttribute={searchAttribute} ignoreCase={ignoreCase}
           renderItem={({ item }) => (<SaleCard sale={item} key={item.id} />)}
           keyExtractor={item => item.id.toString()}
+          extraData={this.props.sales}
         />
       </React.Fragment>
     )
