@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
+import { WebView } from 'react-native'
 import { connect } from 'react-redux'
 import * as Animatable from 'react-native-animatable'
 import { Snackbar } from 'react-native-paper'
 import { setSaleGeneratedSnackbarVisible } from './redux/actions';
+import navigationService from './navigation/navigationService';
 
 class Index extends Component {
-
     _renderSaleGeneratedSnackbar = () => {
         if (!this.props.saleGeneratedSnackbarVisible)
             return;
         return (
             <Animatable.View animation="slideInUp">
                 <Snackbar
-                    duration={Snackbar.DURATION_LONG}
+                    duration={1000000}
                     visible={this.props.saleGeneratedSnackbarVisible}
                     onDismiss={() => this.props.setSaleGeneratedSnackbarVisible(false)}
                     action={{
                         label: 'View Receipt',
                         onPress: () => {
-                            // Do something
+                            navigationService.navigate('SaleReceiptScreenPDF');
                         },
                     }}
                 >
@@ -26,6 +27,10 @@ class Index extends Component {
                 </Snackbar>
             </Animatable.View>
         )
+    }
+
+    componentDidMount() {
+        console.log(this.props);                           
     }
 
     render() {

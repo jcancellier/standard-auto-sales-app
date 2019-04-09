@@ -6,7 +6,7 @@ import {
 // Screens
 import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
-
+import SaleReceiptScreenPDF from '../screens/SaleReceiptScreenPDF';
 
 // Dashboard options
 import CustomersScreen from '../screens/CustomersScreen';
@@ -29,7 +29,8 @@ const AuthStack = createStackNavigator({
 });
 
 const DashboardStack = createStackNavigator({
-	DashboardScreen
+	DashboardScreen,
+	SaleReceiptScreenPDF
 }, {
 		headerLayoutPreset: 'left'
 	})
