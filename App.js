@@ -8,6 +8,7 @@ import { createRootNavigator } from './src/navigation'
 import { theme } from './src/global';
 import NavigationService from './src/navigation/navigationService';
 import Index from './src/index';
+import navigationService from './src/navigation/navigationService';
 
 export default class App extends React.Component {
   state = {

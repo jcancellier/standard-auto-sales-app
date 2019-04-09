@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Print } from 'expo'
 import { WebView, View, Text } from 'react-native'
-import { generateReceipt } from '../utils/generateHTML';
+import { generateReceipt } from '../utils/SalesInvoice/generateHTML';
 
 export default class SaleReceiptScreenPDF extends Component {
     state = {
