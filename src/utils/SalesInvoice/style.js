@@ -113,16 +113,16 @@ table td {
 }
 
 table td h3{
-  color: #57B223;
-  font-size: 1.2em;
+  // color: #57B223;
+  font-size: 1.8em;
   font-weight: normal;
   margin: 0 0 0.2em 0;
 }
 
 table .no {
-  color: #FFFFFF;
   font-size: 1.6em;
-  background: #57B223;
+  // background: #57B223;
+  background: #DDDDDD
 }
 
 table .desc {
@@ -198,6 +198,10 @@ footer {
   border-top: 1px solid #AAAAAA;
   padding: 8px 0;
   text-align: center;
+}
+
+.vehicle_title {
+  font-size: 1.8em;
 }
 
 `

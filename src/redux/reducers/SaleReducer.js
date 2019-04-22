@@ -6,7 +6,8 @@ import {
   POST_SALE_SUCCESS,
   POST_SALE_FAIL,
   SET_CONFIRM_SALE_DIALOG_VISIBILE,
-  SET_SALE_GENERATED_SNACKBAR_VISIBLE
+  SET_SALE_GENERATED_SNACKBAR_VISIBLE,
+  SET_MOST_RECENT_SALE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
   vehicle: {},
   isLoadingPostSale: false,
   confirmSaleDialogVisible: false,
-  saleGeneratedSnackbarVisible: false
+  saleGeneratedSnackbarVisible: false,
+  mostRecentSale: {}
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -36,6 +38,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, confirmSaleDialogVisible: action.payload }
     case SET_SALE_GENERATED_SNACKBAR_VISIBLE:
       return { ...state, saleGeneratedSnackbarVisible: action.payload }
+    case SET_MOST_RECENT_SALE:
+      return { ...state, mostRecentSale: action.payload}
     default:
       return state;
   }

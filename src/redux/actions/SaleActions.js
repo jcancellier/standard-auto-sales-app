@@ -6,6 +6,7 @@ import {
   POST_SALE_FAIL,
   SET_CONFIRM_SALE_DIALOG_VISIBILE,
   SET_SALE_GENERATED_SNACKBAR_VISIBLE,
+  SET_MOST_RECENT_SALE,
 } from './types'
 
 import { addSale } from '../../api';
@@ -36,7 +37,8 @@ export const postSale = (sale) => {
         navigationService.navigate('DashboardScreen');
         dispatch({ type: SET_SALE_GENERATED_SNACKBAR_VISIBLE, payload: true});
         dispatch(setSaleCustomer({}));
-        dispatch(setSaleVehicle({}));    
+        dispatch(setSaleVehicle({}));
+        dispatch(setMostRecentSale(sale));    
       })
       .catch((err) => {
         dispatch({ type: POST_SALE_FAIL, payload: err})
@@ -56,5 +58,12 @@ export const setSaleGeneratedSnackbarVisible = (visible) => {
   return {
     type: SET_SALE_GENERATED_SNACKBAR_VISIBLE,
     payload: visible
+  }
+}
+
+export const setMostRecentSale = (sale) => {
+  return {
+    type: SET_MOST_RECENT_SALE,
+    payload: sale
   }
 }

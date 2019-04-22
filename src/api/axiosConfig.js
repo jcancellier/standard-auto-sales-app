@@ -11,7 +11,7 @@ const localURLCSUB = 'https://nervous-lionfish-58.localtunnel.me/api'
 const herokuURL = 'http://standardautosales.herokuapp.com/api/'
 
 const instance = axios.create({
-  baseURL: localURLUbuntu
+  baseURL: herokuURL
 });
 
 export default instance;

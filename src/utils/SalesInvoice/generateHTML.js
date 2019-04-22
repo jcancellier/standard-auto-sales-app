@@ -1,9 +1,38 @@
 import stylesheet from './style';
 import CarImage from './CarImage';
 
-export const generateReceipt = (customer = {name: 'Joshua Cancellier'}) => {
-    return (
-        `
+export const generateReceipt = (customer, sale, vehicle, salesperson) => {
+  const {
+    street,
+    city,
+    state,
+    zipcode,
+    first_name,
+    last_name
+  } = customer;
+
+  const {
+    date,
+    sale_price
+  } = sale;
+  
+  const {
+    color,
+    date_received,
+    odo_reading,
+    year,
+    vin
+  } = vehicle;
+
+  const {
+    make,
+    model
+  } = vehicle.maker;
+
+  const sales_tax = 0.07;
+
+  return (
+    `
         <!DOCTYPE html>
         <html lang="en">
           <head>
@@ -22,7 +51,7 @@ export const generateReceipt = (customer = {name: 'Joshua Cancellier'}) => {
                 <h2 class="name">Standard Auto Sales</h2>
                 <div>112 Belle Terrace, Ste. C, Bakersfield, CA 93307</div>
                 <div>(661)348-4042</div>
-                <div><a href="mailto:company@example.com">sales@standardautosales.com</a></div>
+                <div><a href="mailto:sales@standardautosales.com">sales@standardautosales.com</a></div>
               </div>
               </div>
             </header>
@@ -30,14 +59,14 @@ export const generateReceipt = (customer = {name: 'Joshua Cancellier'}) => {
               <div id="details" class="clearfix">
                 <div id="client">
                   <div class="to">INVOICE TO:</div>
-                  <h2 class="name">${customer.name}</h2>
-                  <div class="address">796 Silver Harbour, TX 79273, US</div>
-                  <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                  <h2 class="name">${first_name} ${last_name}</h2>
+                  <div class="address">${street}, ${city}, ${state} ${zipcode}</div>
+                  <div class="email"><a href="mailto:${first_name}@hotmail.com">${first_name}@hotmail.com</a></div>
                 </div>
                 <div id="invoice">
-                  <h1>INVOICE 3-2-1</h1>
-                  <div class="date">Date of Invoice: 01/06/2014</div>
-                  <div class="date">Due Date: 30/06/2014</div>
+                  <h1>Vehicle Sale Invoice</h1>
+                  <div class="date">Date of Invoice: ${date}</div>
+                  <div class="date">Due Date: 2019-12-31</div>
                 </div>
               </div>
               <table border="0" cellspacing="0" cellpadding="0">
@@ -53,44 +82,49 @@ export const generateReceipt = (customer = {name: 'Joshua Cancellier'}) => {
                 <tbody>
                   <tr>
                     <td class="no">01</td>
-                    <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                    <td class="unit">$40.00</td>
-                    <td class="qty">30</td>
-                    <td class="total">$1,200.00</td>
-                  </tr>
-                  <tr>
-                    <td class="no">02</td>
-                    <td class="desc"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                    <td class="unit">$40.00</td>
-                    <td class="qty">80</td>
-                    <td class="total">$3,200.00</td>
-                  </tr>
-                  <tr>
-                    <td class="no">03</td>
-                    <td class="desc"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                    <td class="unit">$40.00</td>
-                    <td class="qty">20</td>
-                    <td class="total">$800.00</td>
+                    <td class="desc">
+                      <h3 class="vehicle_title">${year} ${make} ${model}</h3>
+                      <p>
+                        <strong>VIN:</strong> ${vin}
+                      </p>
+                      <p>
+                        <strong>Odometer Reading:</strong> ${odo_reading} miles
+                      </p>
+                      <p>
+                        <strong>Color:</strong> ${color}
+                      </p>
+                      <p>
+                      <strong>Date Received:</strong> ${date_received}
+                    </p>
+                    </td>
+                    <td class="unit">$${sale_price}</td>
+                    <td class="qty">1</td>
+                    <td class="total">$${sale_price}</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="2"></td>
                     <td colspan="2">SUBTOTAL</td>
-                    <td>$5,200.00</td>
+                    <td>$${sale_price}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
-                    <td colspan="2">TAX 25%</td>
-                    <td>$1,300.00</td>
+                    <td colspan="2">TAX 7%</td>
+                    <td>$${sales_tax * sale_price}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td colspan="2">GRAND TOTAL</td>
-                    <td>$6,500.00</td>
+                    <td>$${(sales_tax * sale_price) + sale_price}</td>
                   </tr>
                 </tfoot>
               </table>
+              <div id="employee_info">
+                <p>
+                  <strong>Sale fulfilled by Salesperson: </strong> ${salesperson.first_name} ${salesperson.last_name}
+                </p>
+              </div>
               <div id="thanks">Thank you!</div>
               <div id="notices">
                 <div>NOTICE:</div>
@@ -100,5 +134,5 @@ export const generateReceipt = (customer = {name: 'Joshua Cancellier'}) => {
           </body>
         </html>
         `
-    )
+  )
 }

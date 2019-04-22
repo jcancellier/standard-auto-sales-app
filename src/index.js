@@ -19,7 +19,30 @@ class Index extends Component {
                     action={{
                         label: 'View Receipt',
                         onPress: () => {
-                            navigationService.navigate('SaleReceiptScreenPDF');
+                            const {mostRecentSale} = this.props;
+                            let customer = this.props.customers.find(customer => customer.id === mostRecentSale.customer_id);
+                            let vehicle = this.props.vehicles.find(vehicle => vehicle.id === mostRecentSale.vehicle_id);
+                            let sale = mostRecentSale;
+                            let salesperson = this.props.salesperson;
+                            navigationService.navigate('SaleReceiptScreenPDF', {
+                                customer, 
+                                sale,
+                                vehicle,
+                                salesperson
+                            });
+                            
+                            // Example of mostRecentSale object:
+                            // `
+                            // Object {
+                            //     "customer_id": 6,
+                            //     "date": "2019-04-17",
+                            //     "id": 38,
+                            //     "odo_reading": 21,
+                            //     "sale_price": 123123000,
+                            //     "salesperson_id": 1,
+                            //     "vehicle_id": 43,
+                            //   }
+                            // 
                         },
                     }}
                 >
@@ -27,10 +50,6 @@ class Index extends Component {
                 </Snackbar>
             </Animatable.View>
         )
-    }
-
-    componentDidMount() {
-        console.log(this.props);                           
     }
 
     render() {
@@ -44,7 +63,11 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        saleGeneratedSnackbarVisible: state.sales.saleGeneratedSnackbarVisible
+        saleGeneratedSnackbarVisible: state.sales.saleGeneratedSnackbarVisible,
+        mostRecentSale: state.sales.mostRecentSale,
+        customers: state.customers.customers,
+        vehicles: state.vehicles.vehicles,
+        salesperson: state.auth.salesperson
     }
 }
 
