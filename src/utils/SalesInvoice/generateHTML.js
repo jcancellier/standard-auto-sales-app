@@ -83,7 +83,10 @@ export const generateReceipt = (customer, sale, vehicle, salesperson) => {
                   <tr>
                     <td class="no">01</td>
                     <td class="desc">
-                      <h3 class="vehicle_title">${year} ${make} ${model}</h3>
+                      <h3 class="vehicle_title">${make} ${model}</h3>
+                      <p>
+                      <strong>Year:</strong> ${year}
+                    </p>
                       <p>
                         <strong>VIN:</strong> ${vin}
                       </p>
@@ -106,17 +109,17 @@ export const generateReceipt = (customer, sale, vehicle, salesperson) => {
                   <tr>
                     <td colspan="2"></td>
                     <td colspan="2">SUBTOTAL</td>
-                    <td>$${sale_price}</td>
+                    <td>$${sale_price.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td colspan="2">TAX 7%</td>
-                    <td>$${sales_tax * sale_price}</td>
+                    <td>$${(sales_tax * sale_price).toFixed(2)}</td>
                   </tr>
                   <tr>
                     <td colspan="2"></td>
                     <td colspan="2">GRAND TOTAL</td>
-                    <td>$${(sales_tax * sale_price) + sale_price}</td>
+                    <td>$${((sales_tax * sale_price) + sale_price).toFixed(2)}</td>
                   </tr>
                 </tfoot>
               </table>

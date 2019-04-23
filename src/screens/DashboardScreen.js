@@ -42,7 +42,6 @@ class DashboardScreen extends React.Component {
   componentDidMount() {
     // TODO: remove. only for automated stack movement
     // navigationService.navigate('SalesStack');
-    navigationService.navigate('SaleReceiptScreenPDF')
     this.props.navigation.setParams({
       showExitDialog: this._showExitDialog
     })

@@ -47,7 +47,8 @@ const SalesStack = createStackNavigator(
 		SalesScreen,
 		CreateSaleScreen,
 		ChooseCustomerScreen,
-		ChooseVehicleScreen
+		ChooseVehicleScreen,
+		SaleReceiptScreenPDF
 	},
 	{
 		mode: 'modal'

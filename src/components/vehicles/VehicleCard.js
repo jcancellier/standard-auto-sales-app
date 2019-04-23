@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, LayoutAnimation, View } from 'react-native';
 import { Card, Title, Caption, Button, Colors, Subheading, Paragraph, Text } from 'react-native-paper';
 import NavigationService from '../../navigation/navigationService'
 import { theme } from '../../global'
-
+import { setSaleVehicle } from '../../redux/actions';
+import navigationService from '../../navigation/navigationService';
 
 class VehicleCard extends React.Component {
 
@@ -27,6 +29,8 @@ class VehicleCard extends React.Component {
     );
   }
 
+
+
   _renderVehicleDetails = () => {
     const { vehicle } = this.props;
     return (
@@ -39,6 +43,14 @@ class VehicleCard extends React.Component {
         {this._renderVehicleDetailsRow('Test Drives: ', `${vehicle.testdrives.length}`)}
       </React.Fragment>
     );
+  }
+
+  componentDidMount() {
+  }
+
+  _onSaleClick = () => {
+    this.props.setSaleVehicle(this.props.vehicle);
+    navigationService.navigate('CreateSaleScreen')
   }
 
   render() {
@@ -60,7 +72,7 @@ class VehicleCard extends React.Component {
           {this.state.expanded && this._renderVehicleDetails()}
         </Card.Content>
         <Card.Actions style={{ justifyContent: 'flex-end' }}>
-          <Button color={Colors.green700} mode='contained' style={{ margin: 5, marginTop: 0 }} onPress={() => alert('pressed')}>$ SELL</Button>
+          <Button color={Colors.green700} mode='contained' style={{ margin: 5, marginTop: 0 }} onPress={this._onSaleClick}>$ SELL</Button>
         </Card.Actions>
       </Card>
     )
@@ -74,4 +86,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export { VehicleCard };
+const ConnectedComponent = connect(null, {
+  setSaleVehicle
+})(VehicleCard);
+
+export { ConnectedComponent as VehicleCard }

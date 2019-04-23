@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
-import { Title, Caption, Searchbar } from 'react-native-paper';
+import { Title, Caption, Searchbar, Button } from 'react-native-paper';
 import { SaleCard } from './SaleCard';
 import { theme } from '../../global';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { Ionicons } from '@expo/vector-icons';
 import NavigationService from '../../navigation/navigationService';
+import DatePicker from 'react-native-datepicker'
 
 class SaleList extends React.PureComponent {
 
   state = {
+    data: [...this.props.sales],
     searchTerm: "",
     searchAttribute: "date",
     ignoreCase: true
@@ -23,8 +25,29 @@ class SaleList extends React.PureComponent {
       <View style={styles.listHeader}>
         <Title style={styles.listHeaderTitle}>Sales</Title>
         <Caption style={styles.listSubheaderTitle}>{`${sales.length} bookings`}</Caption>
+        <View>
+        </View>
       </View>
     );
+  }
+
+  componentDidMount() {
+    this._sortSales();
+  }
+
+  _sortSales = () => {
+    const { data } = this.state;
+    this._sortSalesByDate();
+  }
+
+  _sortSalesByDate = (ascending = true) => {
+    return this.state.data.sort((a, b) => {
+      if(ascending) {
+        return a.date > b.date
+      } else {
+        return a.date < b.date
+      }
+    })
   }
 
   render() {
@@ -35,17 +58,20 @@ class SaleList extends React.PureComponent {
           <TouchableOpacity onPress={() => NavigationService.navigate('DashboardScreen')} style={{ paddingRight: 20, paddingVertical: 10, paddingLeft: 0, justifyContent: 'center' }}>
             <Ionicons name="md-close" size={20} color={theme.colors.text} style={{ paddingLeft: 14 }} />
           </TouchableOpacity>
-          <Searchbar
+          {/* <Searchbar
             placeholder="Search"
             onChangeText={searchTerm => this.setState({ searchTerm })}
             value={searchTerm}
             style={styles.searchbar}
-          />
+          /> */}
         </View>
         <SearchableFlatList
           ListHeaderComponent={this._renderHeaderComponent}
-          style={styles.list} data={this.props.sales} searchTerm={searchTerm}
-          searchAttribute={searchAttribute} ignoreCase={ignoreCase}
+          style={styles.list} 
+          data={this.props.sales} 
+          searchTerm={searchTerm}
+          searchAttribute={searchAttribute} 
+          ignoreCase={ignoreCase}
           renderItem={({ item }) => (<SaleCard sale={item} key={item.id} />)}
           keyExtractor={item => item.id.toString()}
           extraData={this.props.sales}

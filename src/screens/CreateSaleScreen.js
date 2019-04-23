@@ -169,9 +169,9 @@ class CreateSaleScreen extends Component {
             <Paragraph>.</Paragraph>
             {
               !isProfit ?
-                <Paragraph style={{fontFamily: fonts.regular}}>With this purchase you will be generating a deficit of: </Paragraph>
+                <Paragraph style={{ fontFamily: fonts.regular }}>With this purchase you will be generating a deficit of: </Paragraph>
                 :
-                <Paragraph style={{fontFamily: fonts.regular}}>With this purchase you will be generating a profit of: </Paragraph>
+                <Paragraph style={{ fontFamily: fonts.regular }}>With this purchase you will be generating a profit of: </Paragraph>
             }
             {
               !isProfit ?
@@ -213,6 +213,10 @@ class CreateSaleScreen extends Component {
   }
 
   _showConfirmSaleDialog = () => {
+    if (Object.getOwnPropertyNames(this.props.customer).length === 0) {
+      alert('Must select a customer')
+      return;
+    }
     this.props.setConfirmSaleDialogVisible(true);
   }
 
