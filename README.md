@@ -58,9 +58,10 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React Native](https://facebook.github.io/react-native/) - The mobile application framework used
+* [React Native Paper](https://reactnativepaper.com) - UI Library
+* [Expo](https://expo.io) - Toolchain built around React Native
+* [Redux](https://redux.js.org) - State management library
 
 ## Contributing
 
