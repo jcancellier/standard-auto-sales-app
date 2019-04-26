@@ -21,7 +21,7 @@ import VechiclesScreen from '../screens/VehiclesScreen';
 import VisitsScreen from '../screens/VisitsScreen';
 // 
 
-import CustomerScreen from '../screens/CustomerScreen';
+import CreateCustomerScreen from '../screens/CreateCustomerScreen';
 
 // Authentication Stack
 const AuthStack = createStackNavigator({
@@ -37,9 +37,9 @@ const DashboardStack = createStackNavigator({
 
 const CustomersStack = createStackNavigator({
 	CustomersScreen,
-	CustomerScreen
+	CreateCustomerScreen,
 }, {
-		headerLayoutPreset: 'left'
+		mode: 'modal'
 	})
 
 const SalesStack = createStackNavigator(

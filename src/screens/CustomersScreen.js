@@ -15,11 +15,10 @@ class CustomersScreen extends Component {
   })
 
   render() {
-    const { customers } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.content}>
-          <CustomerList customers={customers} />
+          <CustomerList customers={this.props.customers} />
         </View>
       </SafeAreaView >
     );

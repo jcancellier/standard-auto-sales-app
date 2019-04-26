@@ -47,3 +47,38 @@ export const addSale = (req) => {
       .catch(err => reject(validateServerError(err)));
   })
 }
+
+export const addCustomer = (req) => {
+
+  const { 
+    first_name,
+    last_name,
+    drivers_license,
+    dob,
+    issue_date,
+    expiration_date,
+    sex,
+    street,
+    city,
+    state,
+    zipcode
+  } = req;
+
+  return new Promise((resolve, reject) => {
+    axios.post('/customers', {
+      first_name,
+      last_name,
+      drivers_license,
+      dob,
+      issue_date,
+      expiration_date,
+      sex,
+      street,
+      city,
+      state,
+      zipcode
+    })
+      .then(res => resolve(res.data))
+      .catch(err => reject(validateServerError(err)));
+  })
+}

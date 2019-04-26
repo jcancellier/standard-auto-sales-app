@@ -9,7 +9,7 @@ const CustomerCard = ({ customer }) => {
       elevation={5}
       style={styles.container} 
       onPress={() => {
-        NavigationService.navigate('CustomerScreen', {
+        NavigationService.navigate('CreateCustomerScreen', {
           name: `${customer.first_name} ${customer.last_name}`
         })
       }}

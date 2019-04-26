@@ -7,6 +7,9 @@ export const LOGIN_WITH_USER_ID_AND_PASSWORD_FAIL = "login_with_user_id_and_pass
 export const FETCH_CUSTOMERS_START = "fetch_customers_start";
 export const FETCH_CUSTOMERS_SUCCESS = "fetch_customers_success";
 export const FETCH_CUSTOMERS_FAIL = "fetch_customers_fail";
+export const POST_CUSTOMER_START = "post_customer_start";
+export const POST_CUSTOMER_SUCCESS = "post_customer_success";
+export const POST_CUSTOMER_FAIL = "post_customer_fail";
 
 // VehicleReducer types
 export const FETCH_VEHICLES_START = "fetch_vehicles_start";

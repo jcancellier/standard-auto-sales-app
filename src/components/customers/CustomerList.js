@@ -7,10 +7,10 @@ import { SearchableFlatList } from "react-native-searchable-list";
 import { Ionicons } from '@expo/vector-icons';
 import NavigationService from '../../navigation/navigationService';
 
-class CustomerList extends React.PureComponent {
+class CustomerList extends React.Component {
 
   state = {
-    data: [...this.props.customers],
+    // data: [...this.props.customers],
     searchTerm: "",
     searchAttribute: "last_name",
     ignoreCase: true
@@ -47,10 +47,12 @@ class CustomerList extends React.PureComponent {
         </View>
         <SearchableFlatList
           ListHeaderComponent={this._renderHeaderComponent}
-          style={styles.list} data={data} searchTerm={searchTerm}
+          style={styles.list} data={this.props.customers} searchTerm={searchTerm}
           searchAttribute={searchAttribute} ignoreCase={ignoreCase}
           renderItem={({ item }) => (<CustomerCard customer={item} key={item.id} />)}
-          keyExtractor={item => item.id.toString()} />
+          keyExtractor={item => item.id.toString()} 
+          extraData={this.props.customers}
+          />
       </React.Fragment>
     )
   }

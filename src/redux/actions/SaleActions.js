@@ -29,7 +29,6 @@ export const setSaleCustomer = (customer) => {
 export const postSale = (sale) => {
   return (dispatch) => {
     dispatch({ type: POST_SALE_START });
-    // TODO: finish adding post request
     addSale(sale)
       .then((sale) => {
         dispatch({ type: POST_SALE_SUCCESS, payload: sale })
