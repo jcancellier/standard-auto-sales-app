@@ -1,4 +1,4 @@
-# Standard Auto Sales Mobile Application
+# Standard Auto Sales
 
 One Paragraph of project description goes here
 
