@@ -49,10 +49,6 @@ class CreateCustomerScreen extends React.Component {
     this.props.postCustomer(newCustomer);
   }
 
-  _constructCustomerObject = () => {
-
-  }
-
   _constructCustomer = () => {
     const { 
       first_name,

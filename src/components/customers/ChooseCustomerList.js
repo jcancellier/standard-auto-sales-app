@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
-import { Title, Caption, Searchbar } from 'react-native-paper';
+import { Title, Caption, Searchbar, Button } from 'react-native-paper';
 import { ChooseCustomerCard } from './ChooseCustomerCard';
 import { theme } from '../../global';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { Ionicons } from '@expo/vector-icons';
 import NavigationService from '../../navigation/navigationService';
 
-class ChooseCustomerList extends React.PureComponent {
+class ChooseCustomerList extends React.Component {
 
   state = {
-    data: [...this.props.customers],
+    // data: [...this.props.customers],
     searchTerm: "",
     searchAttribute: "last_name",
     ignoreCase: true
@@ -19,12 +19,19 @@ class ChooseCustomerList extends React.PureComponent {
   _keyExtractor = (item, index) => item.id.toString();
 
   _renderHeaderComponent = () => {
-    const { data, searchTerm, searchAttribute, ignoreCase } = this.state;
+    const { customers } = this.props;
 
     return (
       <View style={styles.listHeader}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginRight: 10}}>
         <Title style={styles.listHeaderTitle}>Customers</Title>
-        <Caption style={styles.listSubheaderTitle}>10 customers</Caption>
+        <Button onPress={() => {
+                    NavigationService.navigate('CreateCustomerScreen')
+        }}>
+          Add
+        </Button>
+        </View>
+        <Caption style={styles.listSubheaderTitle}>{`${customers.length} customers`}</Caption>
       </View>
     );
   }
@@ -47,10 +54,12 @@ class ChooseCustomerList extends React.PureComponent {
         </View>
         <SearchableFlatList
           ListHeaderComponent={this._renderHeaderComponent}
-          style={styles.list} data={data} searchTerm={searchTerm}
+          style={styles.list} data={this.props.customers} searchTerm={searchTerm}
           searchAttribute={searchAttribute} ignoreCase={ignoreCase}
           renderItem={({ item }) => (<ChooseCustomerCard customer={item} key={item.id} />)}
-          keyExtractor={item => item.id.toString()} />
+          keyExtractor={item => item.id.toString()} 
+          extraData={this.props.customers}
+          />
       </React.Fragment>
     )
   }

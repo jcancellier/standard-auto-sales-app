@@ -32,16 +32,15 @@ class SaleList extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._sortSales();
+    // this._sortSales();
   }
 
-  _sortSales = () => {
-    const { data } = this.state;
+  _sortSales(){
     this._sortSalesByDate();
   }
 
-  _sortSalesByDate = (ascending = true) => {
-    return this.state.data.sort((a, b) => {
+  _sortSalesByDate(ascending = false){
+    return this.props.sales.sort((a, b) => {
       if(ascending) {
         return a.date > b.date
       } else {
@@ -58,12 +57,12 @@ class SaleList extends React.PureComponent {
           <TouchableOpacity onPress={() => NavigationService.navigate('DashboardScreen')} style={{ paddingRight: 20, paddingVertical: 10, paddingLeft: 0, justifyContent: 'center' }}>
             <Ionicons name="md-close" size={20} color={theme.colors.text} style={{ paddingLeft: 14 }} />
           </TouchableOpacity>
-          {/* <Searchbar
+          <Searchbar
             placeholder="Search"
             onChangeText={searchTerm => this.setState({ searchTerm })}
             value={searchTerm}
             style={styles.searchbar}
-          /> */}
+          />
         </View>
         <SearchableFlatList
           ListHeaderComponent={this._renderHeaderComponent}

@@ -202,11 +202,13 @@ class CreateSaleScreen extends Component {
     const maxOdoReading = vehicle.odo_reading + 100;
     const minOdoReading = vehicle.odo_reading;
 
+    let d = new Date();
+
     return {
       customer_id: customer.id,
       salesperson_id: salesperson.id,
       vehicle_id: vehicle.id,
-      date: new Date(),
+      date: `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`,
       sale_price: this.state.sale_price,
       odo_reading: Math.floor(Math.random() * (maxOdoReading - minOdoReading)) + minOdoReading
     }
