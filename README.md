@@ -1,6 +1,6 @@
 # Standard Auto Sales
 
-One Paragraph of project description goes here
+A mobile application which mockingly assists the day-to-day tasks of salespeople working for [Standard Auto Sales](https://www.standardcarsales.com)
 
 ## Getting Started
 
