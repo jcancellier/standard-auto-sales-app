@@ -54,7 +54,9 @@ class CustomerCard extends React.Component {
 
   _onSelectCustomer = () => {
     store.dispatch({ type: SET_SALE_CUSTOMER, payload: this.props.customer })
-    NavigationService.navigate('CreateSaleScreen')
+    NavigationService.navigate('CreateSaleScreen', {
+      goBackFromCreateSaleScreen: 'CustomersScreen'
+    })
   }
 
   render() {

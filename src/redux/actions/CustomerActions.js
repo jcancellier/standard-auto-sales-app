@@ -4,13 +4,15 @@ import {
   FETCH_CUSTOMERS_SUCCESS,
   POST_CUSTOMER_START,
   POST_CUSTOMER_SUCCESS,
-  POST_CUSTOMER_FAIL
+  POST_CUSTOMER_FAIL,
+  SET_CUSTOMER_CREATED_SNACKBAR_VISIBLE
 } from './types';
 
 import {
   fetchAllCustomers as fetchAllCustomersApi,
   addCustomer
 } from '../../api';
+import navigationService from '../../navigation/navigationService';
 
 export const fetchAllCustomers = () => {
   return (dispatch) => {
@@ -40,10 +42,19 @@ export const postCustomer = (customer) => {
     addCustomer(customer)
       .then((customer) => {
         dispatch({ type: POST_CUSTOMER_SUCCESS, payload: customer });
+        dispatch({ type: SET_CUSTOMER_CREATED_SNACKBAR_VISIBLE, payload: true })
+        navigationService.goBack();
       })
       .catch((err) => {
         dispatch({ type: POST_CUSTOMER_FAIL, payload: err })
         alert('invalid data');
       })
+  }
+}
+
+export const setCustomerCreatedSnackbarVisible = (visible) => {
+  return {
+    type: SET_CUSTOMER_CREATED_SNACKBAR_VISIBLE,
+    payload: visible
   }
 }

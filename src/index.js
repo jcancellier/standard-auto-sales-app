@@ -3,7 +3,7 @@ import { WebView } from 'react-native'
 import { connect } from 'react-redux'
 import * as Animatable from 'react-native-animatable'
 import { Snackbar } from 'react-native-paper'
-import { setSaleGeneratedSnackbarVisible } from './redux/actions';
+import { setSaleGeneratedSnackbarVisible, setCustomerCreatedSnackbarVisible } from './redux/actions';
 import navigationService from './navigation/navigationService';
 
 class Index extends Component {
@@ -52,10 +52,34 @@ class Index extends Component {
         )
     }
 
+    _renderCustomerCreatedSnackbar = () => {
+        if (!this.props.customerCreatedSnackbarVisible)
+            return;
+        return (
+            <Animatable.View animation="slideInUp" delay={500}>
+                <Snackbar
+                    duration={10000}
+                    visible={this.props.customerCreatedSnackbarVisible}
+                    onDismiss={() => this.props.setCustomerCreatedSnackbarVisible(false)}
+                    action={{
+                        label: 'OK',
+                        onPress: () => {
+                        },
+                    }}
+                >
+                    New Customer Registered!
+                </Snackbar>
+            </Animatable.View>
+        )
+    }
+
+    
+
     render() {
         return (
             <React.Fragment>
                 {this._renderSaleGeneratedSnackbar()}
+                {this._renderCustomerCreatedSnackbar()}
             </React.Fragment>
         )
     }
@@ -67,10 +91,12 @@ const mapStateToProps = (state) => {
         mostRecentSale: state.sales.mostRecentSale,
         customers: state.customers.customers,
         vehicles: state.vehicles.vehicles,
-        salesperson: state.auth.salesperson
+        salesperson: state.auth.salesperson,
+        customerCreatedSnackbarVisible: state.customers.customerCreatedSnackbarVisible
     }
 }
 
 export default connect(mapStateToProps, {
-    setSaleGeneratedSnackbarVisible
+    setSaleGeneratedSnackbarVisible,
+    setCustomerCreatedSnackbarVisible
 })(Index);

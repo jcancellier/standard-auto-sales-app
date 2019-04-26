@@ -134,7 +134,7 @@ class CreateSaleScreen extends Component {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View>
             {this._renderCustomerDetailsRow('Year: ', year)}
-            {this._renderCustomerDetailsRow('Odometer: ', odo_reading)}
+            {this._renderCustomerDetailsRow('Odometer: ', `${odo_reading} miles`)}
             {this._renderCustomerDetailsRow('VIN: ', vin)}
           </View>
           <View style={{ width: 0.2, backgroundColor: theme.colors.surface }} />
@@ -191,7 +191,8 @@ class CreateSaleScreen extends Component {
   }
 
   _onExit = () => {
-    NavigationService.navigate('SalesScreen');
+    let goBackFromCreateSaleScreen = this.props.navigation.getParam('goBackFromCreateSaleScreen', 'DashboardScreen')
+    NavigationService.navigate(goBackFromCreateSaleScreen);
     this.props.setSaleCustomer({});
     this.props.setSaleVehicle({});
   }

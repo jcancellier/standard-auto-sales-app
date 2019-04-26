@@ -10,6 +10,7 @@ export const FETCH_CUSTOMERS_FAIL = "fetch_customers_fail";
 export const POST_CUSTOMER_START = "post_customer_start";
 export const POST_CUSTOMER_SUCCESS = "post_customer_success";
 export const POST_CUSTOMER_FAIL = "post_customer_fail";
+export const SET_CUSTOMER_CREATED_SNACKBAR_VISIBLE = "set_customer_created_snackbar_visible";
 
 // VehicleReducer types
 export const FETCH_VEHICLES_START = "fetch_vehicles_start";
