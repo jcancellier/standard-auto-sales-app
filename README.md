@@ -3,14 +3,19 @@
 A mobile application which assists the day-to-day tasks of salespeople working for [Standard Auto Sales](https://www.standardcarsales.com)
 
 ## Screenshots
-
-<a href="https://play.google.com/store/apps/details?id=com.jcancellier.petlocator" target="_tab">
-  <img 
+<html>
+  <head>
+    <style></style>
+  </head>
+  <body>
+  <div class="appImageContainer">
+    <img 
        alt="Get it on Google Play" 
-       src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" 
-       height=36px 
-  />
-</a>
+       src="docs/login.png" 
+       height=400px 
+    />
+  </body>
+</html>
 
 ## Getting Started
 
