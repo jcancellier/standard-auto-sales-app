@@ -86,7 +86,7 @@ class CreateSaleScreen extends Component {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View>
-            {this._renderCustomerDetailsRow('Sex: ', sex === 'm' ? 'Male' : 'Female')}
+            {this._renderCustomerDetailsRow('Sex: ', sex.toUpperCase() === 'M' ? 'Male' : 'Female')}
             {this._renderCustomerDetailsRow('Drivers License: ', drivers_license)}
             {this._renderCustomerDetailsRow('Birth Date: ', dob)}
           </View>

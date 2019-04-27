@@ -37,7 +37,7 @@ class CreateCustomerScreen extends React.Component {
 
   componentDidMount() {
     // TODO: Remove. Solely for debugging and auto-filling form
-    this._autoFillForm();
+    // this._autoFillForm();
   }
 
   _onExit = () => {

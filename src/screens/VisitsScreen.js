@@ -1,36 +1,23 @@
 import React, { Component } from 'react';
+import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
-import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Title } from 'react-native-paper';
 import { theme } from '../global';
+import { VisitList } from '../components/visits';
 
 class VisitsScreen extends Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: '',
-    headerStyle: { backgroundColor: theme.colors.background, borderBottomWidth: 0, zIndex: 0, elevation: 0 },
-    headerTitleStyle: {
-      color: theme.colors.text,
-      fontFamily: theme.fonts.medium,
-      fontWeight: 'normal',
-      fontSize: 14,
-      marginLeft: 16
-    },
-    headerLeft: () => {
-      return (
-        <TouchableOpacity onPress={() => navigation.navigate('DashboardScreen')}>
-          <Ionicons name="md-close" size={20} color={theme.colors.text} style={{ paddingLeft: 14 }} />
-        </TouchableOpacity>
-      );
-    }
+    header: null
   })
 
   render() {
+    const { visits } = this.props;
     return (
       <SafeAreaView style={styles.container}>
-        <Title>Visits Screen</Title>
-      </SafeAreaView>
+        <View style={styles.content}>
+          <VisitList visits={visits} />
+        </View>
+      </SafeAreaView >
     );
   }
 }
@@ -39,6 +26,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background
+  },
+  subContainer: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    margin: 15,
+    marginTop: 0
+  },
+  header: {
+    flex: 2
+  },
+  content: {
+    flex: 8
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontFamily: theme.fonts.medium
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   }
 })
 
@@ -48,4 +57,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(VisitsScreen)
+export default connect(mapStateToProps)(VisitsScreen);

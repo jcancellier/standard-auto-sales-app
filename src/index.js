@@ -13,7 +13,7 @@ class Index extends Component {
         return (
             <Animatable.View animation="slideInUp">
                 <Snackbar
-                    duration={5000}
+                    duration={15000}
                     visible={this.props.saleGeneratedSnackbarVisible}
                     onDismiss={() => this.props.setSaleGeneratedSnackbarVisible(false)}
                     action={{

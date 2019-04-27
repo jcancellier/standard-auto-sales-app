@@ -16,14 +16,14 @@ class LoginScreen extends React.Component {
     // TODO: Remove. Only for testing.
     // Timed login
     // setTimeout(() => this._login(), 1000);
-    this._login();
+    // this._login();
     this.props.fetchAllCustomers();
     this.props.fetchAllVehicles();
   }
 
   state = {
-    lastName: 'Jenoure',
-    salespersonId: '1'
+    lastName: '',
+    salespersonId: ''
   }
 
   _verifyForm = () => {
