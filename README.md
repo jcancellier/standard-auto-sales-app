@@ -7,12 +7,17 @@ A mobile application which assists with the day-to-day tasks of salespeople work
     <img 
        alt="Login Screen" 
        src="docs/login.png" 
-       height=400px 
+       height=500px 
     />
     <img 
-       alt="Login Screen" 
-       src="docs/login.png" 
-       height=400px 
+       alt="Dashboard Screen" 
+       src="docs/dashboard.png" 
+       height=500px 
+    />
+    <img 
+       alt="Customers Screen" 
+       src="docs/customers.png" 
+       height=500px 
     />
   </p>
 
