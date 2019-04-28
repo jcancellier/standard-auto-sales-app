@@ -10,8 +10,8 @@ A mobile application which assists the day-to-day tasks of salespeople working f
   <body>
   <div class="appImageContainer">
     <img 
-       alt="Get it on Google Play" 
-       src="docs/Login.png" 
+       alt="Login Screen" 
+       src="docs/login.png" 
        height=400px 
     />
   </body>
