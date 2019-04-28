@@ -5,13 +5,13 @@ A mobile application which assists the day-to-day tasks of salespeople working f
 ## Screenshots
 <html>
   <head>
-    <style></style>
+    
   </head>
   <body>
   <div class="appImageContainer">
     <img 
        alt="Get it on Google Play" 
-       src="docs/login.png" 
+       src="docs/Login.png" 
        height=400px 
     />
   </body>
