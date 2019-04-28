@@ -3,28 +3,18 @@
 A mobile application which assists the day-to-day tasks of salespeople working for [Standard Auto Sales](https://www.standardcarsales.com)
 
 ## Screenshots
-<html>
-  <head>
-    
-  </head>
-  <body>
-  <div class="appImageContainer">
+  <p float="left">
     <img 
        alt="Login Screen" 
        src="docs/login.png" 
        height=400px 
     />
-  </body>
-</html>
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
+    <img 
+       alt="Login Screen" 
+       src="docs/login.png" 
+       height=400px 
+    />
+  </p>
 
 ## Built With
 
