@@ -68,4 +68,4 @@ A mobile application which assists with the day-to-day tasks of salespeople work
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
