@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 16,
-    right: 10,
-    bottom: 30,
+    right: 0,
+    bottom: 0,
   }
 })
 
