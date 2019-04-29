@@ -31,6 +31,28 @@ A mobile application which assists with the day-to-day tasks of salespeople work
       src="docs/add-customer.png" 
       height=500px 
    />
+   <img 
+      alt="Create Sale Screen" 
+      src="docs/create-sale.png" 
+      height=500px 
+   />
+</p>
+<p float="left">
+   <img 
+      alt="Visits Screen" 
+      src="docs/visits.png" 
+      height=500px 
+   />
+   <img 
+      alt="Create Sale Screen (filled)" 
+      src="docs/create-sale-filled.png" 
+      height=500px 
+   />
+   <img 
+      alt="Sales Screen" 
+      src="docs/sales.png" 
+      height=500px 
+   />
 </p>
 
 ## Built With
