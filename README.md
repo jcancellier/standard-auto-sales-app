@@ -64,9 +64,7 @@ A mobile application which assists with the day-to-day tasks of salespeople work
 
 ## Authors
 
-* **Joshua Cancellier** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Joshua Cancellier** - [Personal Website](https://jcancellier.github.io)
 
 ## License
 
