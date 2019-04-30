@@ -55,6 +55,8 @@ A mobile application which assists with the day-to-day tasks of salespeople work
    />
 </p>
 
+**[Express and Sequelize Restful API](https://github.com/jcancellier/standard-auto-sales-api)**
+
 ## Built With
 
 * [React Native](https://facebook.github.io/react-native/) - The mobile application framework used
