@@ -55,7 +55,7 @@ A mobile application which assists with the day-to-day tasks of salespeople work
    />
 </p>
 
-## API used
+## Custom API used
 **[Express and Sequelize Restful API](https://github.com/jcancellier/standard-auto-sales-api)**
 
 ## Built With
